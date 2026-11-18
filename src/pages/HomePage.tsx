@@ -1,6 +1,7 @@
 import { supabase } from "../components/lib/supabaseClient";
 import { useState, useEffect } from "react";
 import type { Country } from "../types/country";
+import CountyCard from "../components/country/CountyCard";
 
 function HomePage() {
   const [countries, setCountries] = useState<Country[]>([]);
@@ -28,7 +29,13 @@ function HomePage() {
 
 
    console.log(countries)
-  return <div>HomePage</div>;
+  return (
+    <>
+    {countries.map((country) =>(
+ <CountyCard>{country}</CountyCard>
+    ))}
+    </>
+  )
 }
 
 export default HomePage;

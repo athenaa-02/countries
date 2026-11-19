@@ -1,17 +1,22 @@
-import useGetCountry from "../hooks/useGetCountry"
-import { useParams } from "react-router-dom"
+import useGetCountry from "../hooks/useGetCountry";
+import { useParams } from "react-router-dom";
+import ReturnBtn from "../components/common/ReturnBtn";
 
 function CountryDetailPage() {
-  const {id} = useParams()
-  console.log(id)
+  const { id } = useParams();
+  console.log(id);
 
-  const {country, loading, error} = useGetCountry(id)
+  const { country, loading, error } = useGetCountry(id);
 
-console.log(country)
+  console.log(country);
 
   return (
-    <div>CountryDetailPage</div>
-  )
+    <>
+      <div>
+     <ReturnBtn/>
+      </div>
+    </>
+  );
 }
 
-export default CountryDetailPage
+export default CountryDetailPage;

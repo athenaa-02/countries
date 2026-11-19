@@ -1,5 +1,6 @@
 import type { Country } from "../../types/country";
 import getNativeName from '../../utils/getNativeName.ts'
+import formatPopulation from "../../utils/formatPopulation.ts";
 
 function CountryDetailedInfo({ countryInfo }: { countryInfo: Country }) {
 const {data} = countryInfo
@@ -23,7 +24,7 @@ const {data} = countryInfo
                   </div>
                   <div>
                     <dt>Population:</dt>
-                    <dd>11,319,511</dd>
+                    <dd>{formatPopulation(data.population)}</dd>
                   </div>
                   <div>
                     <dt>Region:</dt>

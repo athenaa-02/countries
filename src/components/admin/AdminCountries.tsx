@@ -5,7 +5,7 @@ import { useState } from "react";
 
 function AdminCountries() {
   const { countries, error, loading } = useCountries();
-const [onDelete, setOnDelete] = useState(false)
+  const [onDelete, setOnDelete] = useState<boolean>(false);
 
 
 console.log(onDelete)
@@ -21,7 +21,7 @@ console.log(onDelete)
       ))}
       
       </div>
-      {onDelete && <DeleteModal></DeleteModal>}
+      {onDelete && <DeleteModal open={{ onDelete, setOnDelete }}></DeleteModal>}
     </>
   );
 }

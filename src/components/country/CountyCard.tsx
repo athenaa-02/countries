@@ -1,4 +1,6 @@
 import type { Country } from "../../types/country";
+import formatPopulation from "../../utils/formatPopulation.ts";
+
 
 function CountyCard({ children }: { children: Country }) {
   const {
@@ -25,7 +27,7 @@ function CountyCard({ children }: { children: Country }) {
           </h2>
           <div className="flex flex-col gap-2">
             <span>
-               <span className="font-semibold">Population: </span>{population} 
+               <span className="font-semibold">Population: </span>{formatPopulation(population)} 
             </span>
             <span>
               <span className="font-semibold">Region: </span>{region}

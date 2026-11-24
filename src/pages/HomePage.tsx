@@ -3,6 +3,7 @@ import useCountries from "../hooks/useCountries";
 import CountriesLoading from "../components/loaders/CountriesLoading";
 import { Link } from "react-router-dom";
 
+
 function HomePage() {
   const { countries, error, loading } = useCountries();
 

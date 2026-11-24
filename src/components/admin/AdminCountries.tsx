@@ -1,15 +1,14 @@
 import useCountries from "../../hooks/useCountries";
 import CountyCard from "../country/CountyCard";
 import DeleteModal from "../common/DeleteModal";
+import { useState } from "react";
 
 function AdminCountries() {
   const { countries, error, loading } = useCountries();
+const [onDelete, setOnDelete] = useState(false)
 
 
-  console.log(countries);
-
-
-  
+console.log(onDelete)
 
   return (
     <>
@@ -17,12 +16,12 @@ function AdminCountries() {
         
       {countries.map((country) => (
         <div><CountyCard>{country}</CountyCard>
-       <button className="bg-red-500 rounded cursor-pointer px-2">delete</button>
+       <button onClick={() => setOnDelete(true)} className="bg-red-500 rounded cursor-pointer px-2">delete</button>
        </div> 
       ))}
       
       </div>
-      <DeleteModal></DeleteModal>
+      {onDelete && <DeleteModal></DeleteModal>}
     </>
   );
 }

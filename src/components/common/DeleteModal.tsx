@@ -23,9 +23,12 @@ function DeleteModal({
     <>
       <div
         onClick={() => setOnDelete(!onDelete)}
-        className="absolute flex justify-center items-center top-0 w-full h-screen bg-[#000000af] backdrop-blur-xs"
+        className="fixed flex justify-center items-center  bottom-0 w-full h-screen  bg-[#000000af] backdrop-blur-xs"
       >
-        <div onClick={(e) => e.stopPropagation()} className="bg-white w-[35%] max-w-125 min-w-81.25 h-60 rounded-2xl flex flex-col justify-center gap-10 px-5 text-center">
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="bg-white w-[35%] max-w-125 min-w-81.25 h-60 rounded-2xl flex flex-col justify-center gap-10 px-5 text-center"
+        >
           <p>
             Are you sure you want to delete "სახელი"? This action cannot be
             undone.

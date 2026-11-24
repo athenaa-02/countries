@@ -1,7 +1,13 @@
 
+
 function AdminAddCountries() {
   return (
-    <div>AdminAddCountries</div>
+   <>
+   <form >
+
+
+   </form>
+   </>
   )
 }
 

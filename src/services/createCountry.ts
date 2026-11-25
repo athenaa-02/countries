@@ -1,0 +1,56 @@
+import { supabase } from "../components/lib/supabaseClient";
+
+export type NewCountry = {
+  name: string;
+  official_name: string | null;
+  alpha_2: string;
+  alpha_3: string;
+  capital: string;
+  region: NonNullable<
+    "Africa" | "Americas" | "Asia" | "Europe" | "Oceania" | undefined
+  >;
+  subregion: string;
+  population: number;
+  flag_url: string;
+};
+
+const FILE_TYPE = 'webp' 
+
+
+export async function uploadFlag(alpha_2:string, flag: File){
+
+    const fileName = `${alpha_2.toLowerCase()}.${FILE_TYPE}` 
+
+
+    const {data, error} = await supabase.storage.from('flags').upload(fileName, flag)
+    
+    if(error) {
+        console.log(error.message)
+        throw error
+    }
+
+    const {data:urlData} = supabase.storage.from('flags').getPublicUrl(data.path)
+
+    
+
+    return urlData.publicUrl
+
+
+}
+
+
+
+export async function createCountry(values:NewCountry){
+
+
+    const {data, error} = await supabase.from('countries').insert(values)
+
+    if(error){
+        console.log(error.code, error.message)
+        throw error
+    }
+    console.log(data)
+}
+
+
+

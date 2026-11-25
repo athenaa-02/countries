@@ -4,6 +4,8 @@ import { supabase } from "../lib/supabaseClient";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { uploadFlag } from "../../services/createCountry";
+import { createCountry } from "../../services/createCountry";
 
 function AdminAddCountries() {
   const [preview, setPreview] = useState<null | string>(null);
@@ -14,7 +16,28 @@ function AdminAddCountries() {
     formState: { errors },
   } = useForm<CountryFormValues>({ resolver: yupResolver(countrySchema) });
 
-  function onSubmit() {}
+  const oneFile = register("flag");
+
+  async function onSubmit(values: CountryFormValues) {
+    console.log(values.flag[0]);
+    try {
+      const url = await uploadFlag(values.alpha_2, values.flag[0]);
+
+      await createCountry({
+        name: values.name,
+        official_name: values.official_name,
+        alpha_2: values.alpha_2,
+        alpha_3: values.alpha_3,
+        capital: values.capital,
+        region: values.region,
+        subregion: values.subregion,
+        population: values.population,
+        flag_url: url,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
@@ -170,14 +193,20 @@ function AdminAddCountries() {
                   type="file"
                   id="flag"
                   className="hidden "
-                  {...register("flag")}
+                  accept="image/webp"
+                  {...oneFile}
                   onChange={(e) => {
+                    oneFile.onChange(e);
                     const file = e.target.files![0];
                     const url = URL.createObjectURL(file);
-                    setPreview(url);
+                    if (preview) URL.revokeObjectURL(preview);
+                    setPreview(file ? url : null);
                   }}
                 />
-                <button onClick={() => setPreview(null)} className="bg-gray-300 p-1 rounded cursor-pointer">
+                <button
+                  onClick={() => setPreview(null)}
+                  className="bg-gray-300 p-1 rounded cursor-pointer"
+                >
                   clear
                 </button>
               </div>

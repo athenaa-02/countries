@@ -12,9 +12,9 @@ export const countrySchema = yup.object({
   name: yup
     .string()
     .trim()
-    .required("validation.required")
-    .min(2, "validation.min2")
-    .max(100, "validation.max100"),
+    .required("required")
+    .min(2, "min2")
+    .max(100, "max100"),
 
   official_name: yup
     .string()
@@ -27,37 +27,30 @@ export const countrySchema = yup.object({
     .string()
     .trim()
     .transform((value) => value?.toUpperCase())
-    .required("validation.required")
-    .matches(/^[A-Z]{2}$/, "validation.alpha2"),
+    .required("required")
+    .matches(/^[A-Z]{2}$/, "only 2 symbols"),
 
   alpha_3: yup
     .string()
     .trim()
     .transform((value) => value?.toUpperCase())
-    .required("validation.required")
-    .matches(/^[A-Z]{3}$/, "validation.alpha3"),
+    .required("required")
+    .matches(/^[A-Z]{3}$/, "only 3 symbols"),
 
-  capital: yup.string().trim().required("validation.required"),
+  capital: yup.string().trim().required("required"),
 
-  region: yup
-    .string()
-    .oneOf(REGIONS, "validation.region")
-    .required("validation.required"),
+  region: yup.string().oneOf(REGIONS, "region").required("required"),
 
-  subregion: yup.string().trim().required("validation.required"),
+  subregion: yup.string().trim().required("required"),
 
   population: yup
     .number()
-    .typeError("validation.number")
-    .required("validation.required")
-    .integer("validation.integer")
-    .min(0, "validation.positive"),
+    .typeError("must be a number")
+    .required("required")
+    .integer("must be an integer")
+    .min(0, "must be positive number"),
 
-  flag_url: yup
-    .string()
-    .trim()
-    .url("validation.url")
-    .required("validation.required"),
+  flag: yup.mixed<File>().required("required"),
 });
 
 export type CountryFormValues = yup.InferType<typeof countrySchema>;

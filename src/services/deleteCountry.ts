@@ -1,25 +1,35 @@
+import { useEffect } from "react";
 import { supabase } from "../components/lib/supabaseClient";
 import type { Country } from "../types/country";
+import useCountries from "../hooks/useCountries";
 
-export async function deleteCountry(id:string, country:Country){
-  console.log(country)
-    const {error, data} = await supabase.from('countries').delete().eq('id', id)
-    console.log(data, error)
+export async function deleteCountry(
+  id: string,
+  country: Country,
+  setOnDelete:  (arg0: boolean) => void,
+) {
+  console.log(country);
+  const { error, data } = await supabase
+    .from("countries")
+    .delete()
+    .eq("id", id);
+  console.log(data, error);
+
+  if (error) return;
+
+  await deleteFlag(country.flag_url);
 
 
-if(error) return
-
-
-
-// deleteFlag(country)
+  setOnDelete(false)
 
 }
 
+export async function deleteFlag(flag_url: string) {
+  const url = flag_url.split("/").pop();
+  if (url) {
+    console.log(url);
+    const { error, data } = await supabase.storage.from("flags").remove([url]);
 
-export async function deleteFlag(country:Country){
-
-    
-
-    const {error, data} = await supabase.storage.from('flags').remove([flag_url])
-    console.log(data, error)
+    console.log(data, error);
+  }
 }

@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { deleteCountry } from "../../services/deleteCountry";
 import type { Country } from "../../types/country";
+
 
 function DeleteModal({
   open,
@@ -24,6 +25,9 @@ function DeleteModal({
       document.body.style.overflow = previous;
     };
   }, [onDelete]);
+
+
+
   return (
     <>
       <div
@@ -40,9 +44,14 @@ function DeleteModal({
           </p>
           <div className="flex  justify-center gap-5">
             <button
-              onClick={() => {
-              
-                deleteCountry(countryToDelete.id, countryToDelete);
+              onClick={async () => {
+                await deleteCountry(
+                  countryToDelete.id,
+                  countryToDelete,
+                  setOnDelete,
+                );
+                window.location.reload()
+            
               }}
               className="bg-red-500 rounded cursor-pointer px-2 w-20"
             >

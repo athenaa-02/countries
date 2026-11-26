@@ -30,7 +30,7 @@ function useCountries() {
     getCountries()
   }, []);
 
-  return { countries, error, loading }
+  return { countries, error, loading, setCountries }
 }
 
 export default useCountries

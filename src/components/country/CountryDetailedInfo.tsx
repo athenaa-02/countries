@@ -3,7 +3,7 @@ import getNativeName from '../../utils/getNativeName.ts'
 import formatPopulation from "../../utils/formatPopulation.ts";
 
 function CountryDetailedInfo({ countryInfo }: { countryInfo: Country }) {
-const {data} = countryInfo
+// const {data} = countryInfo
 
     return (
     <>
@@ -15,16 +15,16 @@ const {data} = countryInfo
           <div>
             <div>
               <div>
-                <h2>{countryInfo.name}</h2>
+                <h2>{countryInfo.official_name}</h2>
 
                 <dl>
                   <div>
                     <dt>Native Name:</dt>
-                    <dd>{getNativeName(data.names)}</dd>
+                    <dd>{countryInfo.name}</dd>
                   </div>
                   <div>
                     <dt>Population:</dt>
-                    <dd>{formatPopulation(data.population)}</dd>
+                    <dd>{formatPopulation(countryInfo.population)}</dd>
                   </div>
                   <div>
                     <dt>Region:</dt>
